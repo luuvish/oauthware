@@ -1,8 +1,8 @@
 {
-  "name" : "connect-auth",
+  "name" : "oauthware",
   "description" : "Middleware for Connect (node.js) for handling your authentication needs.",
   "version" : "0.4.1",
-  "author" : "Ciaran Jessup <ciaranj@gmail.com>",
+  "author" : "Injo Luuvish Hwang <luuvish@gmail.com>",
   "engines" : {"node" : ">=0.4.0"}, 
   "main" : "lib/index.js",
   "directories" : { "lib" : "./lib" },
@@ -14,6 +14,6 @@
   },
   "repository" : {
       "type":"git"
-    , "url":"http://github.com/ciaranj/connect-auth.git"
+    , "url":"http://github.com/luuvish/oauthware.git"
   }
 }

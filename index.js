@@ -9,4 +9,4 @@
  * Module dependencies.
  */
 
-module.exports = require('./lib/authware');
+module.exports = require('./lib/oauthware');
