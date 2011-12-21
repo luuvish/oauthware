@@ -5,8 +5,11 @@
   "keywords": ["web", "middleware", "connect", "oauth", "twitter", "facebook"],
   "repository" : "http://github.com/luuvish/oauthware.git",
   "author" : "Injo Luuvish Hwang <luuvish@gmail.com> (http://luuvish.org)",
-  "dependencies" : {},
-  "devDependencies" : { "connect": "1.8.2" },
+  "dependencies" : {
+  },
+  "devDependencies" : {
+    "connect": "1.8.2"
+  },
   "main" : "index.js",
   "engines" : { "node": ">= 0.4.1 < 0.7.0" }
 }

@@ -11,10 +11,8 @@
  */
 
 var connect = require('connect'),
-    auth = require('../index'),
-    fs = require('fs'),
-    Twitter = require('../lib/twitter'),
-    Facebook = require('../lib/facebook');
+    OAuthware = require('../index'),
+    fs = require('fs');
 
 /**
  * Web client server parameters
@@ -37,12 +35,12 @@ process.on('uncaughtException', function (err) {
 
 function connect_oauthware() {
   return connect.createServer(
-    new Twitter({
+    new OAuthware.Twitter({
       consumerKey    : 'uRnESc07dpIGdBDVc1V7A',
       consumerSecret : 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo',
       callback       : 'http://' + hostname + ':' + port + '/auth/twitter/callback'
     }),
-    new Facebook({
+    new OAuthware.Facebook({
       appId          : '214990631897215',
       appSecret      : '236d093791188ff7bed07a817a63e53a',
       scope          : 'email',
