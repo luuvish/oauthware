@@ -12,7 +12,9 @@
 
 var connect = require('connect'),
     auth = require('../index'),
-    fs = require('fs');
+    fs = require('fs'),
+    Twitter = require('../lib/twitter'),
+    Facebook = require('../lib/facebook');
 
 /**
  * Web client server parameters
@@ -98,12 +100,28 @@ function routes(app) {
   });
 }
 
+function oauthware_twitter() {
+  return new Twitter({
+    consumerKey    : 'uRnESc07dpIGdBDVc1V7A',
+    consumerSecret : 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo',
+    callback       : 'http://' + hostname + ':' + port + '/auth/twitter/callback'
+  });
+}
+function oauthware_facebook() {
+  return new Facebook({
+    appId          : '214990631897215',
+    appSecret      : '236d093791188ff7bed07a817a63e53a',
+    scope          : 'email',
+    callback       : 'http://' + hostname + ':' + port + '/auth/facebook/callback'
+  });
+}
+
 /**
  * router hostname:port/domain/.. to /public/.. directory
  */
 
 var server = connect.createServer(
-//connect.logger(),
+  connect.logger(),
   connect.favicon(),
   connect['static'](__dirname + '/auth'),
   connect.cookieParser(),
@@ -111,7 +129,9 @@ var server = connect.createServer(
     secret : 'FlurbleGurgleBurgle', 
     store  : new connect.session.MemoryStore({ reapInterval: -1 })
   }),
-  connect_auth(),
+//connect_auth(),
+  oauthware_twitter(),
+  oauthware_facebook(),
   connect.router(routes)
 );
 
