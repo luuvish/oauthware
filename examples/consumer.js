@@ -36,11 +36,13 @@ process.on('uncaughtException', function (err) {
 function connect_oauthware() {
   return connect.createServer(
     new OAuthware.Twitter({
+      mount          : '/auth/twitter',
       consumerKey    : 'uRnESc07dpIGdBDVc1V7A',
       consumerSecret : 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo',
       callback       : 'http://' + hostname + ':' + port + '/auth/twitter/callback'
     }),
     new OAuthware.Facebook({
+      mount          : '/auth/facebook',
       appId          : '214990631897215',
       appSecret      : '236d093791188ff7bed07a817a63e53a',
       scope          : 'email',
@@ -54,7 +56,7 @@ function connect_oauthware() {
  */
 
 var server = connect.createServer(
-  connect.logger(),
+//connect.logger(),
   connect.favicon(),
   connect['static'](__dirname + '/consumer'),
   connect.cookieParser(),
