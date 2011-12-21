@@ -44,9 +44,11 @@
       <script src="jquery-1.7.js"></script>
       <script>
         $(function() {
-          $.get('/auth/twitter/access_token', function(response) {
-            alert('string='+response);
-            alert('json='+JSON.stringify(response));
+          $.get('auth/facebook/user', function(res) {
+            $('#facebook-user').text(JSON.stringify(res));
+          }, 'json');
+          $.get('auth/twitter/user', function(res) {
+            $('#twitter-user').text(JSON.stringify(res));
           }, 'json');
         });
       </script>
@@ -68,12 +70,22 @@
                       </span>
                     </a>
                   </div></td>
-                </tr> 
+      						<td><div style="float:left;margin-left:5px">
+                    <a href="auth/facebook/logout" style="border:0px">
+                      logout
+                    </a>
+                  </div></td>
+                </tr>
       					<tr class="row-b">
       						<td class="first">Twitter</td>
       						<td><div style="float:left;margin-left:5px">
                     <a href="auth/twitter" style="border:0px">
                       <img style="border:0px" src="sign-in-with-twitter-d.png"/>
+                    </a>
+                  </div></td>
+      						<td><div style="float:left;margin-left:5px">
+                    <a href="auth/twitter/logout" style="border:0px">
+                      logout
                     </a>
                   </div></td>
       					</tr>
@@ -82,8 +94,8 @@
       		 </div>
            <div class="box inline">
              <h1>Authenticated</h1>
-             <div id="user">#USER#</div>
-             <h2><a href="/logout">Logout</a></h2>
+             <div id="facebook-user">#USER#</div>
+             <div id="twitter-user">#USER#</div>
            </div>
        	<!-- content-wrap ends here -->		
       	</div></div>
