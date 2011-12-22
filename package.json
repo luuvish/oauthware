@@ -1,6 +1,6 @@
 {
   "name" : "oauthware",
-  "version" : "0.1.0",
+  "version" : "0.1.1",
   "description" : "Connect.js middleware for OAuth 1.0a / 2.0",
   "keywords": ["web", "middleware", "connect", "oauth", "twitter", "facebook"],
   "repository" : "http://github.com/luuvish/oauthware.git",
