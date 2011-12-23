@@ -16,10 +16,25 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
 <script>
   $(function() {
-    $.get('auth/facebook/user', function(res) {
+    var url = { facebook : 'facebook', twitter  : 'twitter' };
+
+    $('#facebook-auth').click(function() {
+      window.location = url.facebook + '/auth';
+    });
+    $('#facebook-logout').click(function() {
+      window.location = url.facebook + '/logout';
+    });
+    $.get(url.facebook + '/user', function(res) {
       $('#facebook').text(JSON.stringify(res));
     }, 'json');
-    $.get('auth/twitter/user', function(res) {
+
+    $('#twitter-auth').click(function() {
+      window.location = url.twitter + '/auth';
+    });
+    $('#twitter-logout').click(function() {
+      window.location = url.twitter + '/logout';
+    });
+    $.get(url.twitter + '/user', function(res) {
       $('#twitter').text(JSON.stringify(res));
     }, 'json');
   });
@@ -135,12 +150,10 @@
 			  <h1 class="float-left"><a href="index.html">Facebook</a></h1>
 
         <p class="align-right">
-          <a href="auth/facebook">
-            <input class="button" type="text" name="Sign-in" value="Sign-in" size="5" />
-          </a>
-          <a href="auth/facebook/logout">
-            <input class="button" type="text" name="Sign-out" value="Sign-out" size="5" />
-          </a>
+          <input id="facebook-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="facebook-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
         </p>
 
         <p><code id="facebook">
@@ -154,12 +167,10 @@
 			  <h1 class="float-left"><a href="index.html">Twitter</a></h1>
 
         <p class="align-right">
-          <a href="auth/twitter">
-            <input class="button" type="text" name="Sign-in" value="Sign-in" size="5" />
-          </a>
-          <a href="auth/twitter/logout">
-            <input class="button" type="text" name="Sign-out" value="Sign-out" size="5" />
-          </a>
+          <input id="twitter-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="twitter-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
         </p>
 
         <p><code id="twitter">

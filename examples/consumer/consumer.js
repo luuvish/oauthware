@@ -25,7 +25,7 @@ var oauthware = require('../../index'),
  * server listens to http://hostname:port/service/..
  */
 
-var serverUrl = 'http://127.0.0.1:8020/',
+var serverUrl = 'https://127.0.0.1:8020/thingsup-web-client',
     url       = parse(serverUrl),
     protocol  = url.protocol || 'http:',
     hostname  = url.hostname || '127.0.0.1',
@@ -45,14 +45,31 @@ process.on('uncaughtException', function (err) {
 
 if (protocol === 'https:') {
   server = connect.createServer({
-    key  : fs.readFileSync(__dirname + '/server.key'),
-    cert : fs.readFileSync(__dirname + '/server.crt')
+    key  : fs.readFileSync(__dirname + '/server-key.pem'),
+    cert : fs.readFileSync(__dirname + '/server-cert.pem')
   });
 } else {
   server = connect.createServer();
 }
 
+function redirect(pathname) {
+  if ('/' == pathname[pathname.length - 1]) {
+    pathname = pathname.slice(0, -1);
+  }
+
+  return function redirect(req, res, next) {
+    if (pathname == parse(req.url).pathname) {
+      res.statusCode = 301;
+      res.setHeader('Location', pathname + '/');
+      res.end('Redirecting to ' + pathname + '/');
+      return;
+    }
+    next();
+  };
+}
+
 //server.use(pathname, connect.logger());
+server.use(redirect(pathname));
 
 server.use(pathname, connect.favicon())
       .use(pathname, connect['static'](__dirname + '/public'))
@@ -63,12 +80,14 @@ server.use(pathname, connect.favicon())
       }))
       .use(pathname, oauthware.router({
         'Twitter' : {
-          mount          : '/auth/twitter',
+          baseUri        : serverUrl,
+          route          : '/twitter',
           consumerKey    : 'uRnESc07dpIGdBDVc1V7A',
-          consumerSecret : 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo'      
+          consumerSecret : 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo'
         },
         'Facebook' : {
-          mount          : '/auth/facebook',
+          baseUri        : serverUrl,
+          route          : '/facebook',
           appId          : '214990631897215',
           appSecret      : '236d093791188ff7bed07a817a63e53a',
           scope          : 'email'
