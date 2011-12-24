@@ -1,18 +1,18 @@
 {
-  "name" : "oauthware",
-  "version" : "0.1.3",
-  "description" : "Connect.js middleware for OAuth 1.0a / 2.0",
+  "name": "oauthware",
+  "version": "0.1.4",
+  "description": "Connect.js middleware for OAuth 1.0a / 2.0",
   "keywords": ["web", "middleware", "connect", "oauth", "twitter", "facebook"],
-  "repository" : {
-    "type" : "git",
-    "url" : "http://github.com/luuvish/oauthware.git"
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/luuvish/oauthware.git"
   },
-  "author" : "Injo Luuvish Hwang <luuvish@gmail.com> (http://luuvish.org)",
-  "dependencies" : {
+  "author": "Injo Luuvish Hwang <luuvish@gmail.com> (http://luuvish.org)",
+  "dependencies": {
   },
-  "devDependencies" : {
+  "devDependencies": {
     "connect": "1.8.2"
   },
-  "main" : "index.js",
-  "engines" : { "node": ">= 0.4.1 < 0.7.0" }
+  "main": "index.js",
+  "engines": { "node": ">= 0.4.1 < 0.7.0" }
 }
