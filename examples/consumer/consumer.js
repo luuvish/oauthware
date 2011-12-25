@@ -25,7 +25,7 @@ var oauthware = require('../../index'),
  * server listens to http://hostname:port/service/..
  */
 
-var serverUrl = 'https://127.0.0.1:8020/oauthware/',
+var serverUrl = 'http://127.0.0.1:8020/oauthware/',
     url       = parse(serverUrl),
     protocol  = url.protocol || 'http:',
     hostname  = url.hostname || '127.0.0.1',
@@ -68,7 +68,7 @@ function redirect(pathname) {
   };
 }
 
-//server.use(pathname, connect.logger());
+//server.use(connect.logger());
 server.use(redirect(pathname));
 
 server.use(pathname, connect.favicon())
