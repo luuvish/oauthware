@@ -3,11 +3,11 @@
 OAuthware is an authentication library for Node.js, Connect.js and Express.js.
 
 OAuthware supports simple authentication of Twitter, Facebook, Google, and other many providers using OAuth 1.0a/2.0.
-***
+
 ## Installation
 
     $ npm install oauthware
----
+
 ## Usage
 
 #### Connect/Express middleware
@@ -16,9 +16,9 @@ OAuthware supports simple authentication of Twitter, Facebook, Google, and other
         oauthware = require('oauthware');
 
     connect.createServer(
-        connect.cookeiParser(),
+        connect.cookieParser(),
         connect.session({secret: 'oauthware'}),
-        oauthware.createOAuth(
+        oauthware.createServer(
             oauthware.twitter({
                 consumerKey: TWITTER_CONSUMER_KEY,
                 consumerSecret: TWITTER_CONSUMER_SECRET
@@ -36,9 +36,12 @@ OAuthware supports simple authentication of Twitter, Facebook, Google, and other
 
 #### Authentication API
 
+    app.get('/user', function(req, res, next) {
+      req.authenticate();
+    });
+
 #### Examples
 
-- - -
 ## Provider
 
 <table>
@@ -50,12 +53,11 @@ OAuthware supports simple authentication of Twitter, Facebook, Google, and other
     <tr><td><a href="https://github.com/luuvish/oauthware-facebook">Facebook</a></td><td>Facebook authentication</td><td></td></tr>
   </tbody>
 </table>
-***
 
 ## Credits
 
 - [Luuvish](http://github.com/luuvish)
-- - - -
+
 ## License
 
 (The MIT License)

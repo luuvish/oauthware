@@ -1,6 +1,6 @@
 
 /*!
- * ThingsUp
+ * Consumer
  * Copyright(c) 2011 CodeHolics Inc.
  * Copyright(c) 2011 luuvish
  * CodeHolics Licensed
@@ -72,27 +72,27 @@ function redirect(pathname) {
 server.use(redirect(pathname));
 
 server.use(pathname, connect.favicon())
-      .use(pathname, connect['static'](__dirname + '/public'))
+      .use(pathname, connect.static(__dirname + '/public'))
       .use(pathname, connect.cookieParser())
       .use(pathname, connect.session({
-        secret : 'FlurbleGurgleBurgle', 
-        store  : new connect.session.MemoryStore({ reapInterval: -1 })
+        secret: 'FlurbleGurgleBurgle', 
+        store:  new connect.session.MemoryStore({ reapInterval: -1 })
       }))
-      .use(pathname, oauthware.router({
-        'Twitter' : {
-          baseUri        : serverUrl,
-          route          : '/twitter',
-          consumerKey    : 'uRnESc07dpIGdBDVc1V7A',
-          consumerSecret : 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo'
-        },
-        'Facebook' : {
-          baseUri        : serverUrl,
-          route          : '/facebook',
-          appId          : '214990631897215',
-          appSecret      : '236d093791188ff7bed07a817a63e53a',
-          scope          : 'email'
-        }
-      }));
+      .use(pathname, oauthware.createServer(
+        oauthware.twitter({
+          baseUri: serverUrl,
+          route: '/twitter',
+          consumerKey: 'uRnESc07dpIGdBDVc1V7A',
+          consumerSecret: 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo'
+        }),
+        oauthware.facebook({
+          baseUri: serverUrl,
+          route: '/facebook',
+          appId: '214990631897215',
+          appSecret: '236d093791188ff7bed07a817a63e53a',
+          scope: 'email'
+        })
+      ));
 
 // listen to http://hostname:port
 

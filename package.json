@@ -1,6 +1,6 @@
 {
   "name": "oauthware",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Connect.js middleware for OAuth 1.0a / 2.0",
   "keywords": ["web", "middleware", "connect", "oauth", "twitter", "facebook"],
   "repository": {
