@@ -45,15 +45,15 @@ process.on('uncaughtException', function (err) {
 
 if (protocol === 'https:') {
   server = connect.createServer({
-    key  : fs.readFileSync(__dirname + '/server-key.pem'),
-    cert : fs.readFileSync(__dirname + '/server-cert.pem')
+    key: fs.readFileSync(__dirname + '/server-key.pem'),
+    cert: fs.readFileSync(__dirname + '/server-cert.pem')
   });
 } else {
   server = connect.createServer();
 }
 
 function redirect(pathname) {
-  if ('/' == pathname[pathname.length - 1]) {
+  if ('/' === pathname[pathname.length - 1]) {
     pathname = pathname.slice(0, -1);
   }
 
@@ -76,7 +76,7 @@ server.use(pathname, connect.favicon())
       .use(pathname, connect.cookieParser())
       .use(pathname, connect.session({
         secret: 'FlurbleGurgleBurgle', 
-        store:  new connect.session.MemoryStore({ reapInterval: -1 })
+        store: new connect.session.MemoryStore({ reapInterval: -1 })
       }))
       .use(pathname, oauthware.createServer(
         oauthware.twitter({

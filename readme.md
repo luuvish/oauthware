@@ -12,32 +12,80 @@ OAuthware supports simple authentication of Twitter, Facebook, Google, and other
 
 #### Connect/Express middleware
 
+OAuthware is middleware of Connect.js and Express.js. Using as handle of HTTP Server. 
+
     var connect = require('connect),
         oauthware = require('oauthware');
 
     connect.createServer(
-        connect.cookieParser(),
-        connect.session({secret: 'oauthware'}),
-        oauthware.createServer(
-            oauthware.twitter({
-                consumerKey: TWITTER_CONSUMER_KEY,
-                consumerSecret: TWITTER_CONSUMER_SECRET
-            }),
-            oauthware.facebook({
-                clientId: FACEBOOK_APP_ID,
-                clientSecret: FACEBOOK_APP_SECRET
-            }),
-            oauthware.google({
-                clientId: GOOGLE_APP_ID,
-                clientSecret: GOOGLE_APP_SECRET
-            }),
-        )
+      connect.cookieParser(),
+      connect.session({secret: 'oauthware'}),
+      oauthware.createServer(
+        oauthware.twitter({
+          consumerKey: TWITTER_CONSUMER_KEY,
+          consumerSecret: TWITTER_CONSUMER_SECRET
+        }),
+        oauthware.facebook({
+          clientId: FACEBOOK_APP_ID,
+          clientSecret: FACEBOOK_APP_SECRET
+        }),
+        oauthware.google({
+          clientId: GOOGLE_APP_ID,
+          clientSecret: GOOGLE_APP_SECRET
+        }),
+      )
     );
+
+The function createServer() of OAuthware will work just like connect.createServer() !
+
+    var oauth = oauthware.createServer()
+
+    oauth.use('/auth/twitter', oauthware.twitter({
+      consumerKey: TWITTER_CONSUMER_KEY,
+      consumerSecret: TWITTER_CONSUMER_SECRET
+    }))
+    oauth.use('/auth/facebook', oauthware.facebook({
+      clientId: FACEBOOK_APP_ID,
+      clientSecret: FACEBOOK_APP_SECRET
+    });
+
+OAuthware.middleware is lists of authentication providers.
+
+    Object.keys(require('oauthware').middleware);
+
+    ['facebook', 'twitter', 'google', 'github', ...]
+
+Middleware of OAuthware will create a handle of HTTP Server
+
+    var twitter = oauthware.twitter({
+      consumerKey: TWITTER_CONSUMER_KEY,
+      consumerSecret: TWITTER_CONSUMER_SECRET
+    });
+    var Facebook = oauthware.facebook({
+      clientId: FACEBOOK_APP_ID,
+      clientSecret: FACEBOOK_APP_SECRET
+    });
+
+    connect.createServer(
+      connect.cookieParser(),
+      connect.session({secret: 'oauthware'}),
+      twitter,
+      facebook
+    );
+
 
 #### Authentication API
 
-    app.get('/user', function(req, res, next) {
-      req.authenticate();
+    var twitter = oauthware.twitter({
+      consumerKey: TWITTER_CONSUMER_KEY,
+      consumerSecret: TWITTER_CONSUMER_SECRET
+    });
+
+    connect.router(function (app) {
+      app.get('/twitter/auth', twitter.authenticate);
+      app.get('/twitter/signin', twitter.signIn);
+      app.get('/twitter/signOut', twitter.signOut);
+      app.get('/twitter/rest', twitter.rest);
     });
 
 #### Examples
