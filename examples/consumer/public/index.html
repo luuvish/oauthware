@@ -19,22 +19,22 @@
     var url = { facebook : 'facebook', twitter  : 'twitter' };
 
     $('#facebook-auth').click(function() {
-      window.location = url.facebook + '/auth';
+      window.location = url.facebook + '/signin';
     });
     $('#facebook-logout').click(function() {
-      window.location = url.facebook + '/logout';
+      window.location = url.facebook + '/signout';
     });
-    $.get(url.facebook + '/user', function(res) {
+    $.get(url.facebook + '/api/me', function(res) {
       $('#facebook').text(JSON.stringify(res));
     }, 'json');
 
     $('#twitter-auth').click(function() {
-      window.location = url.twitter + '/auth';
+      window.location = url.twitter + '/signin';
     });
     $('#twitter-logout').click(function() {
-      window.location = url.twitter + '/logout';
+      window.location = url.twitter + '/signout';
     });
-    $.get(url.twitter + '/user', function(res) {
+    $.get(url.twitter + '/api/account/verify_credentials.json', function(res) {
       $('#twitter').text(JSON.stringify(res));
     }, 'json');
   });

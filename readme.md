@@ -10,7 +10,7 @@ OAuthware supports simple authentication of Twitter, Facebook, Google, and other
 
 ## Usage
 
-#### Connect/Express middleware
+#### OAuthware.createServer()
 
 OAuthware is middleware of Connect.js and Express.js. Using as handle of HTTP Server. 
 
@@ -49,6 +49,30 @@ The function createServer() of OAuthware will work just like connect.createServe
       clientSecret: FACEBOOK_APP_SECRET
     });
 
+The createServer() has more enhanced options than those of Connect/Express.
+
+    oauthware.createServer({
+        host: 'http://oauthware.org:3000/',
+        route: '/auth',
+      },
+      ['/twitter', oauthware.twitter(..)],
+      ['/facebook', oauthware.facebook(..)]
+    );
+
+The server of OAuthware is also a server of Connect. This uses is possible.
+
+    oauthware.createServer(
+      connect.logger(),
+      connect.cookieParser(),
+      connect.session({key: 'oauthware'}),
+      ['/twitter', oauthware.twitter(..)],
+      ['/facebook', oauthware.facebook(..)]
+    )
+    .use(connect.static(__dirname + '/public'))
+    .listen(3000);
+
+#### Middleware of OAuthware
+
 OAuthware.middleware is lists of authentication providers.
 
     Object.keys(require('oauthware').middleware);
@@ -73,6 +97,43 @@ Middleware of OAuthware will create a handle of HTTP Server
       facebook
     );
 
+Default routing path is added when it is created.
+
+    // jQuery, client side JavaScript
+    $(function() {
+      var HOST    = 'http://oauthware.org',
+          ROUTE   = '/twitter',
+          AUTH    = HOST + ROUTE + '/auth',
+          SIGNIN  = HOST + ROUTE + '/signin',
+          SIGNOUT = HOST + ROUTE + '/signout',
+          API     = HOST + ROUTE + '/api';
+      
+      $('#sign-in').click(function() {
+        windows.location = SIGNIN;
+      });
+      $('#sign-out').click(function() {
+        windows.location = SIGNOUT;
+      });
+      $('#user').click(function() {
+        $.get(API + '/me', function(res) {
+          $('#user-info').text(JSON.stringify(res));
+        }, 'json');
+      });
+    });
+
+User can configure prefer path of URL
+
+    var twitter = oauthware.twitter({
+      consumerKey: TWITTER_CONSUMER_KEY,
+      consumerSecret: TWITTER_CONSUMER_SECRET
+    });
+    twitter.router(function (app) {
+      app.get('/twt/authenticate', this.authenticate);
+      app.get('/twt/login', this.signIn);
+      app.get('/twt/logout', this.signOut);
+      app.get('/twt/rest', this.api);
+      app.post('/twt/rest', this.api);
+    });
 
 #### Authentication API
 

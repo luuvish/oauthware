@@ -31,7 +31,8 @@ var serverUrl = 'http://127.0.0.1:8020/oauthware/',
     hostname  = url.hostname || '127.0.0.1',
     port      = url.port     || (protocol === 'https:' ? '443' : '80'),
     pathname  = url.pathname || '/',
-    server;
+    server,
+    oauth;
 
 // catch Exception
 
@@ -77,22 +78,28 @@ server.use(pathname, connect.favicon())
       .use(pathname, connect.session({
         secret: 'FlurbleGurgleBurgle', 
         store: new connect.session.MemoryStore({ reapInterval: -1 })
-      }))
-      .use(pathname, oauthware.createServer(
-        oauthware.twitter({
-          baseUri: serverUrl,
-          route: '/twitter',
-          consumerKey: 'uRnESc07dpIGdBDVc1V7A',
-          consumerSecret: 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo'
-        }),
-        oauthware.facebook({
-          baseUri: serverUrl,
-          route: '/facebook',
-          appId: '214990631897215',
-          appSecret: '236d093791188ff7bed07a817a63e53a',
-          scope: 'email'
-        })
-      ));
+      }));
+
+var twitter = oauthware.twitter({
+  host: serverUrl,
+  route: '/twitter',
+  consumerKey: 'uRnESc07dpIGdBDVc1V7A',
+  consumerSecret: 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo'
+});
+
+var facebook = oauthware.facebook({
+  host: serverUrl,
+  route: '/facebook',
+  appId: '214990631897215',
+  appSecret: '236d093791188ff7bed07a817a63e53a',
+  scope: 'email'
+});
+
+oauth = oauthware.createServer();
+oauth.use(twitter);
+oauth.use(facebook);
+
+server.use(pathname, oauth);
 
 // listen to http://hostname:port
 
