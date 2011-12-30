@@ -80,26 +80,23 @@ server.use(pathname, connect.favicon())
         store: new connect.session.MemoryStore({ reapInterval: -1 })
       }));
 
-var twitter = oauthware.twitter({
-  host: serverUrl,
-  route: '/twitter',
-  consumerKey: 'uRnESc07dpIGdBDVc1V7A',
-  consumerSecret: 'vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo'
-});
-
-var facebook = oauthware.facebook({
-  host: serverUrl,
-  route: '/facebook',
-  appId: '214990631897215',
-  appSecret: '236d093791188ff7bed07a817a63e53a',
-  scope: 'email'
-});
-
 oauth = oauthware.createServer();
-oauth.use(twitter);
-oauth.use(facebook);
-
 server.use(pathname, oauth);
+
+try {
+  var config = JSON.parse(fs.readFileSync(__dirname + '/config.json'));
+
+  for (var m in config) {
+    if (oauthware[m]) {
+      config[m].host = serverUrl;
+      config[m].route = '/' + m;
+
+      oauth.use(oauthware[m](config[m]));
+    }
+  }
+} catch (e) {
+  console.log('config.json is not found');
+}
 
 // listen to http://hostname:port
 

@@ -16,7 +16,12 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
 <script>
   $(function() {
-    var url = { facebook : 'facebook', twitter  : 'twitter' };
+    var url = {
+      facebook: 'facebook',
+      twitter: 'twitter',
+      linkedin: 'linkedin',
+      github: 'github'
+    };
 
     $('#facebook-auth').click(function() {
       window.location = url.facebook + '/signin';
@@ -36,6 +41,26 @@
     });
     $.get(url.twitter + '/api/account/verify_credentials.json', function(res) {
       $('#twitter').text(JSON.stringify(res));
+    }, 'json');
+
+    $('#linkedin-auth').click(function() {
+      window.location = url.linkedin + '/signin';
+    });
+    $('#linkedin-logout').click(function() {
+      window.location = url.linkedin + '/signout';
+    });
+    $.get(url.linkedin + '/api/people/~', function(res) {
+      $('#linkedin').text(JSON.stringify(res));
+    }, 'json');
+
+    $('#github-auth').click(function() {
+      window.location = url.github + '/signin';
+    });
+    $('#github-logout').click(function() {
+      window.location = url.github + '/signout';
+    });
+    $.get(url.github + '/api/user', function(res) {
+      $('#github').text(JSON.stringify(res));
     }, 'json');
   });
 </script>
@@ -178,6 +203,40 @@
 
 			</div>
 			
+			<div class="box">
+			  
+			  <a name="Linkedin"></a>
+			  <h1 class="float-left"><a href="index.html">Linkedin</a></h1>
+
+        <p class="align-right">
+          <input id="linkedin-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="linkedin-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="linkedin">
+        </code></p>
+
+			</div>
+
+			<div class="box">
+			  
+			  <a name="Github"></a>
+			  <h1 class="float-left"><a href="index.html">Github</a></h1>
+
+        <p class="align-right">
+          <input id="github-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="github-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="github">
+        </code></p>
+
+			</div>
+
 			<br />				
 										
 		</div>			
