@@ -5,7 +5,7 @@ OAuthware is an authentication library for Node.js, Connect.js and Express.js.
 OAuthware supports simple authentication of Twitter, Facebook, Google, and other many providers using OAuth 1.0a/2.0.
 
 ## Installation
-
+    
     $ npm install oauthware
 
 ## Usage
@@ -20,6 +20,7 @@ OAuthware is middleware of Connect.js and Express.js. Using as handle of HTTP Se
     connect.createServer(
       connect.cookieParser(),
       connect.session({secret: 'oauthware'}),
+
       oauthware.createServer(
         oauthware.twitter({
           consumerKey: TWITTER_CONSUMER_KEY,
@@ -44,6 +45,7 @@ The function createServer() of OAuthware will work just like connect.createServe
       consumerKey: TWITTER_CONSUMER_KEY,
       consumerSecret: TWITTER_CONSUMER_SECRET
     }))
+
     oauth.use('/auth/facebook', oauthware.facebook({
       clientId: FACEBOOK_APP_ID,
       clientSecret: FACEBOOK_APP_SECRET
@@ -62,22 +64,25 @@ The createServer() has more enhanced options than those of Connect/Express.
 The server of OAuthware is also a server of Connect. This uses is possible.
 
     oauthware.createServer(
+
       connect.logger(),
       connect.cookieParser(),
       connect.session({key: 'oauthware'}),
+
       ['/twitter', oauthware.twitter(..)],
-      ['/facebook', oauthware.facebook(..)]
-    )
-    .use(connect.static(__dirname + '/public'))
-    .listen(3000);
+      ['/facebook', oauthware.facebook(..)],
+
+      connect.static(__dirname + '/public'))
+
+    ).listen(3000);
 
 #### Middleware of OAuthware
 
 OAuthware.middleware is lists of authentication providers.
 
-    Object.keys(require('oauthware').middleware);
+    Object.keys(require('oauthware').middleware)
 
-    ['facebook', 'twitter', 'google', 'github', ...]
+    => ['facebook', 'twitter', 'linkedin', 'github', ...]
 
 Middleware of OAuthware will create a handle of HTTP Server
 
@@ -85,7 +90,8 @@ Middleware of OAuthware will create a handle of HTTP Server
       consumerKey: TWITTER_CONSUMER_KEY,
       consumerSecret: TWITTER_CONSUMER_SECRET
     });
-    var Facebook = oauthware.facebook({
+
+    var facebook = oauthware.facebook({
       clientId: FACEBOOK_APP_ID,
       clientSecret: FACEBOOK_APP_SECRET
     });
@@ -97,42 +103,48 @@ Middleware of OAuthware will create a handle of HTTP Server
       facebook
     );
 
-Default routing path is added when it is created.
-
-    // jQuery, client side JavaScript
-    $(function() {
-      var HOST    = 'http://oauthware.org',
-          ROUTE   = '/twitter',
-          AUTH    = HOST + ROUTE + '/auth',
-          SIGNIN  = HOST + ROUTE + '/signin',
-          SIGNOUT = HOST + ROUTE + '/signout',
-          API     = HOST + ROUTE + '/api';
-      
-      $('#sign-in').click(function() {
-        windows.location = SIGNIN;
-      });
-      $('#sign-out').click(function() {
-        windows.location = SIGNOUT;
-      });
-      $('#user').click(function() {
-        $.get(API + '/me', function(res) {
-          $('#user-info').text(JSON.stringify(res));
-        }, 'json');
-      });
-    });
-
 User can configure prefer path of URL
 
     var twitter = oauthware.twitter({
       consumerKey: TWITTER_CONSUMER_KEY,
       consumerSecret: TWITTER_CONSUMER_SECRET
     });
-    twitter.router(function (app) {
-      app.get('/twt/authenticate', this.authenticate);
-      app.get('/twt/login', this.signIn);
-      app.get('/twt/logout', this.signOut);
-      app.get('/twt/rest', this.api);
-      app.post('/twt/rest', this.api);
+
+    var handle = twitter.router(function (app) {
+      // default paths
+      // this.path['auth'] = '/twitter/auth';
+      // this.path['login'] = '/twitter/login';
+      // this.path['logout'] = '/twitter/logout';
+      // this.path['api'] = '/twitter/api';
+
+      app.get(this.path['auth'], this.handle['auth']);
+      app.get(this.path['login'], this.handle['login']);
+      app.get(this.path['logout'], this.handle['logout']);
+      app.get(this.path['api'], this.handle['api']);
+      app.put(this.path['api'], this.handle['api']);
+      app.post(this.path['api'], this.handle['api']);
+      app.delete(this.path['api'], this.handle['api']);
+    });
+
+Default routing path is added when it is created.
+
+    // jQuery, client side JavaScript
+    $(function() {
+
+      $('#login').click(function() {
+        windows.location = '/twitter/login';
+      });
+
+      $('#logout').click(function() {
+        windows.location = '/twitter/logout';
+      });
+
+      $('#me').click(function() {
+        $.get('/twitter/api/me', function(res) {
+          $('#me-info').text(JSON.stringify(res));
+        }, 'json');
+      });
+
     });
 
 #### Authentication API
@@ -158,8 +170,10 @@ User can configure prefer path of URL
     <tr><th>Provider</th><th>Description</th><th>Developer</th></tr>
   </thead>
   <tbody>
-    <tr><td><a href="https://github.com/luuvish/oauthware-twitter">Twitter</a></td><td>Twitter authentication</td><td></td></tr>
-    <tr><td><a href="https://github.com/luuvish/oauthware-facebook">Facebook</a></td><td>Facebook authentication</td><td></td></tr>
+    <tr><td><a href="https://github.com/luuvish/oauthware-twitter">Twitter</a></td><td>Twitter authentication</td><td>Luuvish</td></tr>
+    <tr><td><a href="https://github.com/luuvish/oauthware-facebook">Facebook</a></td><td>Facebook authentication</td><td>Luuvish</td></tr>
+    <tr><td><a href="https://github.com/luuvish/oauthware-linkedin">Linkedin</a></td><td>Linkedin authentication</td><td>Luuvish</td></tr>
+    <tr><td><a href="https://github.com/luuvish/oauthware-github">Github</a></td><td>Github authentication</td><td>Luuvish</td></tr>
   </tbody>
 </table>
 

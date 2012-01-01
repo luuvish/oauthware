@@ -89,13 +89,13 @@ try {
   for (var m in config) {
     if (oauthware[m]) {
       config[m].host = serverUrl;
-      config[m].route = '/' + m;
+      config[m].path = '/' + m;
 
       oauth.use(oauthware[m](config[m]));
     }
   }
 } catch (e) {
-  console.log('config.json is not found');
+  console.log('config.json is not found (%j)', e);
 }
 
 // listen to http://hostname:port
