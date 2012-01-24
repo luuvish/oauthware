@@ -20,7 +20,10 @@
       facebook: 'facebook',
       twitter: 'twitter',
       linkedin: 'linkedin',
-      github: 'github'
+      github: 'github',
+      dropbox: 'dropbox',
+      tumblr: 'tumblr',
+      instagram: 'instagram'
     };
 
     $('#facebook-auth').click(function() {
@@ -62,11 +65,41 @@
     $.get(url.github + '/api/user', function(res) {
       $('#github').text(JSON.stringify(res));
     }, 'json');
+
+    $('#dropbox-auth').click(function() {
+      window.location = url.dropbox + '/signin';
+    });
+    $('#dropbox-logout').click(function() {
+      window.location = url.dropbox + '/signout';
+    });
+    $.get(url.dropbox + '/api/account/info', function(res) {
+      $('#dropbox').text(JSON.stringify(res));
+    }, 'json');
+
+    $('#tumblr-auth').click(function() {
+      window.location = url.tumblr + '/signin';
+    });
+    $('#tumblr-logout').click(function() {
+      window.location = url.tumblr + '/signout';
+    });
+    $.get(url.tumblr + '/api/user/info', function(res) {
+      $('#tumblr').text(JSON.stringify(res));
+    }, 'json');
+
+    $('#instagram-auth').click(function() {
+      window.location = url.instagram + '/signin';
+    });
+    $('#instagram-logout').click(function() {
+      window.location = url.instagram + '/signout';
+    });
+    $.get(url.instagram + '/api/users/self', function(res) {
+      $('#instagram').text(JSON.stringify(res));
+    }, 'json');
   });
 </script>
 
 <title>OAuthware</title>
-	
+
 </head>
 
 <body>
@@ -233,6 +266,57 @@
         </p>
 
         <p><code id="github">
+        </code></p>
+
+			</div>
+
+			<div class="box">
+			  
+			  <a name="Dropbox"></a>
+			  <h1 class="float-left"><a href="index.html">Dropbox</a></h1>
+
+        <p class="align-right">
+          <input id="dropbox-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="dropbox-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="dropbox">
+        </code></p>
+
+			</div>
+
+			<div class="box">
+			  
+			  <a name="Tumblr"></a>
+			  <h1 class="float-left"><a href="index.html">Tumblr</a></h1>
+
+        <p class="align-right">
+          <input id="tumblr-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="tumblr-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="tumblr">
+        </code></p>
+
+			</div>
+
+			<div class="box">
+			  
+			  <a name="Instagram"></a>
+			  <h1 class="float-left"><a href="index.html">Instagram</a></h1>
+
+        <p class="align-right">
+          <input id="instagram-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="instagram-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="instagram">
         </code></p>
 
 			</div>

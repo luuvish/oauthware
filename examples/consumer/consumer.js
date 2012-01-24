@@ -32,6 +32,7 @@ var serverUrl = 'http://127.0.0.1:8020/oauthware/',
     port      = url.port     || (protocol === 'https:' ? '443' : '80'),
     pathname  = url.pathname || '/',
     server,
+    config,
     oauth;
 
 // catch Exception
@@ -84,18 +85,18 @@ oauth = oauthware.createServer();
 server.use(pathname, oauth);
 
 try {
-  var config = JSON.parse(fs.readFileSync(__dirname + '/config.json'));
-
-  for (var m in config) {
-    if (oauthware[m]) {
-      config[m].host = serverUrl;
-      config[m].path = '/' + m;
-
-      oauth.use(oauthware[m](config[m]));
-    }
-  }
+  config = JSON.parse(fs.readFileSync(__dirname + '/config.json'));
 } catch (e) {
   console.log('config.json is not found (%j)', e);
+}
+
+for (var m in config) {
+  if (oauthware[m]) {
+    config[m].host = serverUrl;
+    config[m].path = '/' + m;
+
+    oauth.use(oauthware[m](config[m]));
+  }
 }
 
 // listen to http://hostname:port

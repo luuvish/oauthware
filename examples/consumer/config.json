@@ -9,12 +9,25 @@
     "clientSecret": "60a56976407c22febd814af83d97608d29f92602",
     "scope":        "user,public_repo,repo,gist"
   },
-  "linkedin": {
-    "consumerKey":    "28yzq5hbd3ab",
-    "consumerSecret": "06fuObiDnpTXEPmH"
+  "instagram": {
+    "clientId":     "eabada8350504aefa41aa72db43d1c34",
+    "clientSecret": "9e5f636207a94fc881ada7d4c44cef26",
+    "scope":        "basic comments relationships likes"
   },
   "twitter": {
     "consumerKey":    "uRnESc07dpIGdBDVc1V7A",
     "consumerSecret": "vB3t0xlZgyQdenJGh59rvlagd7rTfsdX5ddeCuAIwTo"
+  },
+  "linkedin": {
+    "consumerKey":    "28yzq5hbd3ab",
+    "consumerSecret": "06fuObiDnpTXEPmH"
+  },
+  "dropbox": {
+    "consumerKey":    "hecpefou8jxvnhx",
+    "consumerSecret": "60b40pozb06rgca"
+  },
+  "tumblr": {
+    "consumerKey":    "luzLFvbSQ31TLh0pQLPdDPtknyIx5bzERJrxCQ7B3sstmCh4wi",
+    "consumerSecret": "zgKsjwJMFy9xkdX0Ylb7iFAbUUAS1Ds2mjR1DCE3xzzmnU4TAA"
   }
 }
