@@ -92,8 +92,8 @@ try {
 
 for (var m in config) {
   if (oauthware[m]) {
-    config[m].host = serverUrl;
-    config[m].path = '/' + m;
+    config[m].host = {base: serverUrl};
+    config[m].path = {base: '/' + m};
 
     oauth.use(oauthware[m](config[m]));
   }
