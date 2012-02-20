@@ -1,7 +1,7 @@
 /*!
  * OAuthware
- * Copyright(c) 2011 CodeHolics Inc.
- * Copyright(c) 2011 Injo Luuvish Hwang
+ * Copyright(c) 2011-2012 CodeHolics Inc.
+ * Copyright(c) 2011-2012 Injo Luuvish Hwang
  * MIT Licensed
  */
 
@@ -9,4 +9,4 @@
  * Module dependencies.
  */
 
-module.exports = require('./lib/oauthware');
+exports = module.exports = require('./lib/oauthware');

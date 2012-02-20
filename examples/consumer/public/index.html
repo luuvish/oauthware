@@ -17,12 +17,12 @@
 <script>
   $(function() {
     var url = {
-      facebook: 'facebook',
-      twitter: 'twitter',
-      linkedin: 'linkedin',
-      github: 'github',
-      dropbox: 'dropbox',
-      tumblr: 'tumblr',
+      facebook:  'facebook',
+      twitter:   'twitter',
+      linkedin:  'linkedin',
+      github:    'github',
+      dropbox:   'dropbox',
+      tumblr:    'tumblr',
       instagram: 'instagram'
     };
 
@@ -94,6 +94,56 @@
     });
     $.get(url.instagram + '/api/users/self', function(res) {
       $('#instagram').text(JSON.stringify(res));
+    }, 'json');
+
+    $('#angellist-auth').click(function() {
+      window.location = 'angellist' + '/signin';
+    });
+    $('#angellist-logout').click(function() {
+      window.location = 'angellist' + '/signout';
+    });
+    $.get('angellist' + '/api/me', function(res) {
+      $('#angellist').text(JSON.stringify(res));
+    }, 'json');
+
+    $('#foursquare-auth').click(function() {
+      window.location = 'foursquare' + '/signin';
+    });
+    $('#foursquare-logout').click(function() {
+      window.location = 'foursquare' + '/signout';
+    });
+    $.get('foursquare' + '/api/users/self', function(res) {
+      $('#foursquare').text(JSON.stringify(res));
+    }, 'json');
+
+    $('#vimeo-auth').click(function() {
+      window.location = 'vimeo' + '/signin';
+    });
+    $('#vimeo-logout').click(function() {
+      window.location = 'vimeo' + '/signout';
+    });
+    $.get('vimeo' + '/api/user', function(res) {
+      $('#vimeo').text(JSON.stringify(res));
+    }, 'json');
+
+    $('#gowalla-auth').click(function() {
+      window.location = 'gowalla' + '/signin';
+    });
+    $('#gowalla-logout').click(function() {
+      window.location = 'gowalla' + '/signout';
+    });
+    $.get('gowalla' + '/api/users/me', function(res) {
+      $('#gowalla').text(JSON.stringify(res));
+    }, 'json');
+
+    $('#evernote-auth').click(function() {
+      window.location = 'evernote' + '/signin';
+    });
+    $('#evernote-logout').click(function() {
+      window.location = 'evernote' + '/signout';
+    });
+    $.get('evernote' + '/api/me', function(res) {
+      $('#evernote').text(JSON.stringify(res));
     }, 'json');
   });
 </script>
@@ -317,6 +367,91 @@
         </p>
 
         <p><code id="instagram">
+        </code></p>
+
+			</div>
+
+			<div class="box">
+			  
+			  <a name="Angellist"></a>
+			  <h1 class="float-left"><a href="index.html">Angellist</a></h1>
+
+        <p class="align-right">
+          <input id="angellist-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="angellist-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="angellist">
+        </code></p>
+
+			</div>
+
+			<div class="box">
+			  
+			  <a name="Foursquare"></a>
+			  <h1 class="float-left"><a href="index.html">Foursquare</a></h1>
+
+        <p class="align-right">
+          <input id="foursquare-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="foursquare-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="foursquare">
+        </code></p>
+
+			</div>
+
+			<div class="box">
+			  
+			  <a name="Vimeo"></a>
+			  <h1 class="float-left"><a href="index.html">Vimeo</a></h1>
+
+        <p class="align-right">
+          <input id="vimeo-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="vimeo-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="vimeo">
+        </code></p>
+
+			</div>
+
+			<div class="box">
+			  
+			  <a name="Gowalla"></a>
+			  <h1 class="float-left"><a href="index.html">Gowalla</a></h1>
+
+        <p class="align-right">
+          <input id="gowalla-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="gowalla-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="gowalla">
+        </code></p>
+
+			</div>
+
+			<div class="box">
+			  
+			  <a name="Evernote"></a>
+			  <h1 class="float-left"><a href="index.html">Evernote</a></h1>
+
+        <p class="align-right">
+          <input id="evernote-auth" class="button" type="text"
+           name="Sign-in" value="Sign-in" size="5" />
+          <input id="evernote-logout" class="button" type="text"
+           name="Sign-out" value="Sign-out" size="5" />
+        </p>
+
+        <p><code id="evernote">
         </code></p>
 
 			</div>

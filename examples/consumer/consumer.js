@@ -1,8 +1,8 @@
 
 /*!
  * Consumer
- * Copyright(c) 2011 CodeHolics Inc.
- * Copyright(c) 2011 luuvish
+ * Copyright(c) 2011-2012 CodeHolics Inc.
+ * Copyright(c) 2011-2012 luuvish
  * CodeHolics Licensed
  */
 
